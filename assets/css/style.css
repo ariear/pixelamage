@@ -15,14 +15,18 @@ body {
     position: fixed;
     top: -30px;
     right: -120px;
-    padding-top: 50px;
-    padding-bottom: 30px;
+    padding-top: 60px;
+    padding-bottom: 20px;
     padding-left: 120px;
     padding-right: 120px;
     display: flex;
     justify-content: center;
     align-items: center;
     transform: rotate(45deg);
+    z-index: 20;
+}
+.wrap-btn-github img {
+    width: 50px;
 }
 
 header {
@@ -51,7 +55,7 @@ input[type=file]::file-selector-button {
     border: none;
     background: white;
     padding: 10px 20px;
-    border-radius: 10px;
+    border-radius: 50px;
     color: black;
     cursor: pointer;
     transition: background .2s ease-in-out;
@@ -99,6 +103,12 @@ input[type=file]::file-selector-button {
     border-radius: 15px;
     border: 5px solid #D4737F;
     margin-bottom: 50px;
+}
+
+@media screen and (max-width: 750px) {
+    .img-output {
+        max-width: 90vw;
+    }
 }
 
 .btn {

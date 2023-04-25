@@ -46,7 +46,7 @@ function pixelateImage(image, pixelSize) {
 downloadBtn.addEventListener('click', (e) => {
     const link = document.createElement('a');
     const fileExtension = imageOutput.src.split('.').pop();
-    link.download = `image-${Date.now()}.${fileExtension}`;
+    link.download = `pixelamage-${Math.floor(Math.random() * 101)}.png`;
     link.href = imageOutput.src;
     document.body.appendChild(link);
     link.click();
