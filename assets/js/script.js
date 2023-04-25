@@ -1,41 +1,54 @@
-function pixelate() {
-    var canvas = document.getElementById('canvas');
-    var ctx = canvas.getContext('2d');
+var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+};
 
-    var file = document.getElementById('file-input').files[0];
-    var reader = new FileReader();
+const fileInput = document.getElementById('file-input');
+const imageOutput = document.getElementById('imageOutput');
+const downloadBtn = document.getElementById('downloadButton')
 
-    reader.onload = function(event) {
-        var img = new Image();
-        img.onload = function() {
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0, img.width, img.height);
+fileInput.addEventListener('change', function() {
+	const file = fileInput.files[0];
+	const reader = new FileReader();
+	
+	reader.addEventListener('load', function() {
+		const image = new Image();
+		image.addEventListener('load', function() {
+			imageOutput.src = pixelateImage(image, 10);
+		});
+		image.src = reader.result;
+	});
+	
+	reader.readAsDataURL(file);
+});
 
-            var blockSize = 10;
-            for (var y = 0; y < canvas.height; y += blockSize) {
-                for (var x = 0; x < canvas.width; x += blockSize) {
-                    var pixel = ctx.getImageData(x, y, blockSize, blockSize);
-                    var r = 0, g = 0, b = 0;
-                    for (var i = 0; i < pixel.data.length; i += 4) {
-                        r += pixel.data[i];
-                        g += pixel.data[i + 1];
-                        b += pixel.data[i + 2];
-                    }
-                    r /= blockSize * blockSize;
-                    g /= blockSize * blockSize;
-                    b /= blockSize * blockSize;
-                    ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
-                    ctx.fillRect(x, y, blockSize, blockSize);
-                }
-            }
-
-            var dataUrl = canvas.toDataURL('image/png');
-            var imgElement = document.createElement('img');
-            imgElement.src = dataUrl;
-            document.body.appendChild(imgElement);
-        };
-        img.src = event.target.result;
-    };
-    reader.readAsDataURL(file);
+function pixelateImage(image, pixelSize) {
+	const canvas = document.createElement('canvas');
+	canvas.width = image.width;
+	canvas.height = image.height;
+	
+	const context = canvas.getContext('2d');
+	context.imageSmoothingEnabled = false;
+	context.drawImage(image, 0, 0, canvas.width, canvas.height);
+	
+	const pixelWidth = Math.ceil(canvas.width / pixelSize);
+	const pixelHeight = Math.ceil(canvas.height / pixelSize);
+	
+	context.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, pixelWidth, pixelHeight);
+	context.drawImage(canvas, 0, 0, pixelWidth, pixelHeight, 0, 0, canvas.width, canvas.height);
+	
+	return canvas.toDataURL();
 }
+
+downloadBtn.addEventListener('click', (e) => {
+    const link = document.createElement('a');
+    const fileExtension = imageOutput.src.split('.').pop();
+    link.download = `image-${Date.now()}.${fileExtension}`;
+    link.href = imageOutput.src;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+})

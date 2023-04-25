@@ -18,8 +18,20 @@
         </div>
     </header>
     <div class="wrap-upload-image">
-        <input type="file" name="" id="">
+        <input type="file" accept="image/*" onchange="loadFile(event)"  id="file-input">
     </div>
+    <div class="wrap-img-output">
+        <img id="output" class="img-output" />
+    </div>
+    
+    <p class="text-resuls">Results</p>
+    <div class="wrap-img-output">
+        <img id="imageOutput" class="img-output">
+        <button id="downloadButton" class="btn btn-download">Download</button>
+    </div>
+    <footer>
+        <p>Copyright © 2023 Ariear</p>
+    </footer>
 
     <script src="assets/js/script.js"></script>
 </body>
