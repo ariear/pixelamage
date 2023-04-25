@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #DA9FAD;
+    font-family: 'Manrope', sans-serif;
+}
+
+.wrap-btn-github {
+    background-color: #3D2626;
+    position: fixed;
+    top: -30px;
+    right: -120px;
+    padding-top: 50px;
+    padding-bottom: 30px;
+    padding-left: 120px;
+    padding-right: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(45deg);
+}
+
+header {
+    background-color: #D4737F;
+    color: white;
+    text-align: center;
+    padding: 200px 0px;
+    border-bottom: 5px solid;
+    position: relative;
+}
+
+header h1 {
+    font-size: 64px;
+    letter-spacing: 3px;
+    font-weight: 900;
+    margin-bottom: 18px;
+}
+
+header p {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+input[type=file]::file-selector-button {
+    margin-right: 15px;
+    border: none;
+    background: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: black;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+    font-size: 18px;
+  }
+  
+  input[type=file]::file-selector-button:hover {
+    background: #DA9FAD;
+    color: white;
+  }
+
+.wrap-upload-image{
+    border: 4px solid white;
+    padding: 20px 30px;
+    border-radius: 50px;
+    background-color: #E89797;
+    width: 500px;
+    margin: auto;
+    transform: translateY(-40px);
+}
+
+@media screen and (max-width: 640px) {
+    header h1 {
+        font-size: 60px;
+    }
+    .wrap-upload-image {
+        width: 80vw;
+    }
+    input[type=file]::file-selector-button {
+        font-size: 14px;
+      }
+      .wrap-btn-github img {
+        width: 50px;
+    }
+}
