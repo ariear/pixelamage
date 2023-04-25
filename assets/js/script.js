@@ -9,6 +9,26 @@ var loadFile = function(event) {
 const fileInput = document.getElementById('file-input');
 const imageOutput = document.getElementById('imageOutput');
 const downloadBtn = document.getElementById('downloadButton')
+const imageOutputClass = document.querySelectorAll('.img-output')
+const sembunyi = document.querySelectorAll('.sembunyi')
+
+document.querySelector('#slide').addEventListener('change', (e) => {
+	const file = fileInput.files[0];
+	const reader = new FileReader();
+	
+	reader.addEventListener('load', function() {
+		const image = new Image();
+		image.addEventListener('load', function() {
+			imageOutput.src = pixelateImage(image, e.target.value);
+		});
+		image.src = reader.result;
+	});
+	
+	imageOutputClass.forEach((image) => {image.style.border = '5px solid #D4737F'})
+	sembunyi.forEach((sem) => {sem.style.display = 'block'})
+
+	reader.readAsDataURL(file);
+})
 
 fileInput.addEventListener('change', function() {
 	const file = fileInput.files[0];
@@ -22,6 +42,9 @@ fileInput.addEventListener('change', function() {
 		image.src = reader.result;
 	});
 	
+	imageOutputClass.forEach((image) => {image.style.border = '5px solid #D4737F'})
+	sembunyi.forEach((sem) => {sem.style.display = 'block'})
+
 	reader.readAsDataURL(file);
 });
 
